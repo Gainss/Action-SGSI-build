@@ -10,7 +10,7 @@ on:
       ZIP_NAME:
         description: 'ZIP_NAME'
         required: true
-        default: 'miui_TUCANA_21.5.31_cb42ec9bed_11.0.zip'
+        default: 'update.zip'
       OS_TYPE:
         description: 'OS_TYPE'
         required: true
@@ -18,7 +18,7 @@ on:
       SGSI_TYPE:
         description: 'SGSI_TYPE(AB, A, or BOTH)'
         required: true
-        default: 'AB'
+        default: 'BOTH'
       REPACK_NAME:
         description: 'REPACK_NAME'
         required: true
@@ -39,14 +39,6 @@ jobs:
         run: |
           echo "BUILD_TIME=$(date +%s | md5sum | awk '{print substr($1,1,10)}')" >> $GITHUB_ENV
 
-      - name: Clean up the environment‌‌...
-        run: |
-          docker rmi `docker images -q`
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-          sudo -E apt-get update
-          sudo -E apt-get -y autoremove --purge
-          sudo -E apt-get clean
 
       - name: Configuration Environment‌‌...
         run: |
